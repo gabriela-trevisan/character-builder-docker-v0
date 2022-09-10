@@ -2,8 +2,8 @@ version: '3.8'
 
 services:
   mysqldb:
-    image: mysql
-    # restart: unless-stopped
+    image: mysql:5.7
+    # restart: always
     env_file: ./.env
     environment:
       - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
@@ -12,11 +12,17 @@ services:
       - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
     volumes:
       - db:/var/lib/mysql
+      # - db-config:/etc/mysql
+      # - db-data:/var/lib/mysql
+      # - ./db/backup/files/:/data_backup/data
   app:
     depends_on:
       - mysqldb
-    build: ./character-builder
-    # restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./character-builder/Dockerfile
+    image: node-mysql-app
+    # restart: always
     env_file: ./.env
     ports:
       - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
@@ -29,5 +35,7 @@ services:
     stdin_open: true
     tty: true
 
-volumes: 
+volumes:
   db:
+  # db-config:
+  # db-data:
