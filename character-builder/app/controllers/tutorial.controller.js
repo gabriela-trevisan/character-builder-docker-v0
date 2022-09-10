@@ -128,3 +128,8 @@ exports.deleteAll = (req, res) => {
     else res.send({ message: `All Tutorials were deleted successfully!` });
   });
 };
+
+// new
+exports.teste = (req, res) => {
+  res.send({ message: `Teste!` })
+};

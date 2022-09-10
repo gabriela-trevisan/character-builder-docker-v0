@@ -20,6 +20,7 @@ app.use(express.urlencoded({ extended: true })); /* bodyParser.urlencoded() is d
 // simple route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to Character Builder - Calculator." });
+  // TODO: Criar lista de rotas
 });
 
 require("./app/routes/tutorial.routes.js")(app);
