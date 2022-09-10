@@ -24,11 +24,12 @@ app.get("/", (req, res) => {
 });
 
 require("./app/routes/tutorial.routes.js")(app);
+require("./app/routes/unit.routes.js")(app);
 
 // set port, listen for requests
 // const PORT = process.env.PORT || 8080;
 // const PORT = process.env.NODEJS_LOCAL_PORT || 3000;
-const PORT = process.env.NODE_DOCKER_PORT || 3000;
+const PORT = process.env.NODE_DOCKER_PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server [Process: ${process.pid}] is running on port ${PORT}.`);
 });
