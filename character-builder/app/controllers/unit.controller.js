@@ -30,22 +30,23 @@ exports.create = (req, res) => {
           err.message || "Some error occurred while creating the Unit."
       });
     else res.send(data);
+    // res.send('Testeeeee');
   });
 };
 
 // // Retrieve all Tutorials from the database (with condition).
-// exports.findAll = (req, res) => {
-//   const title = req.query.title;
+exports.findAll = (req, res) => {
+  const title = req.query.title;
 
-//   Unit.getAll(title, (err, data) => {
-//     if (err)
-//       res.status(500).send({
-//         message:
-//           err.message || "Some error occurred while retrieving units."
-//       });
-//     else res.send(data);
-//   });
-// };
+  Unit.getAll(title, (err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving units."
+      });
+    else res.send(data);
+  });
+};
 
 // // Find a single Unit by Id
 // exports.findOne = (req, res) => {

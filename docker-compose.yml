@@ -3,7 +3,7 @@ version: '3.8'
 services:
   mysqldb:
     image: mysql:5.7
-    # restart: always
+    restart: always
     env_file: ./.env
     environment:
       - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
@@ -22,7 +22,7 @@ services:
       context: .
       dockerfile: ./character-builder/Dockerfile
     image: node-mysql-app
-    # restart: always
+    restart: always
     env_file: ./.env
     ports:
       - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT

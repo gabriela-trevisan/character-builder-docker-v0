@@ -29,7 +29,7 @@ Unit.create = (newUnit, result) => {
 };
 
 Unit.findById = (id, result) => {
-  sql.query(`SELECT * FROM units WHERE id = ${id}`, (err, res) => {
+  sql.query(`SELECT * FROM unit WHERE id = ${id}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -47,11 +47,11 @@ Unit.findById = (id, result) => {
   });
 };
 
-Unit.getAll = (title, result) => {
-  let query = "SELECT * FROM units";
+Unit.getAll = (name, result) => {
+  let query = "SELECT * FROM unit";
 
-  if (title) {
-    query += ` WHERE title LIKE '%${title}%'`;
+  if (name) {
+    query += ` WHERE name LIKE '%${name}%'`;
   }
 
   sql.query(query, (err, res) => {
@@ -61,28 +61,28 @@ Unit.getAll = (title, result) => {
       return;
     }
 
-    console.log("units: ", res);
+    console.log("unit: ", res);
     result(null, res);
   });
 };
 
 Unit.getAllPublished = result => {
-  sql.query("SELECT * FROM units WHERE published=true", (err, res) => {
+  sql.query("SELECT * FROM unit WHERE published=true", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
       return;
     }
 
-    console.log("units: ", res);
+    console.log("unit: ", res);
     result(null, res);
   });
 };
 
 Unit.updateById = (id, unit, result) => {
   sql.query(
-    "UPDATE units SET title = ?, description = ?, published = ? WHERE id = ?",
-    [unit.title, unit.description, unit.published, id],
+    "UPDATE unit SET name = ?, description = ?, published = ? WHERE id = ?",
+    [unit.name, unit.description, unit.published, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -103,7 +103,7 @@ Unit.updateById = (id, unit, result) => {
 };
 
 Unit.remove = (id, result) => {
-  sql.query("DELETE FROM units WHERE id = ?", id, (err, res) => {
+  sql.query("DELETE FROM unit WHERE id = ?", id, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -122,14 +122,14 @@ Unit.remove = (id, result) => {
 };
 
 Unit.removeAll = result => {
-  sql.query("DELETE FROM units", (err, res) => {
+  sql.query("DELETE FROM unit", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
       return;
     }
 
-    console.log(`deleted ${res.affectedRows} units`);
+    console.log(`deleted ${res.affectedRows} unit`);
     result(null, res);
   });
 };
