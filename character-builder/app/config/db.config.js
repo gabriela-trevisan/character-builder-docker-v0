@@ -1,9 +1,3 @@
-// module.exports = {
-//   HOST: "localhost",
-//   USER: "root",
-//   PASSWORD: "123",
-//   DB: "builder"
-// };
 module.exports = {
   HOST: process.env.DB_HOST,
   USER: process.env.DB_USER,

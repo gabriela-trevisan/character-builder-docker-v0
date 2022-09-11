@@ -1,7 +1,7 @@
 const sql = require("./db.js");
 
 // constructor
-const Unit = function(unit) {
+const Units = function(unit) {
   this.id = unit.id;
   this.name = unit.name;
   this.type = unit.type;
@@ -12,11 +12,8 @@ const Unit = function(unit) {
   this.total_cost = unit.total_cost;
 };
 
-Unit.create = (newUnit, result) => {
-  console.log('Unit.create()')
-  console.log(newUnit)
-  console.log(result)
-  sql.query("INSERT INTO unit SET ?", newUnit, (err, res) => {
+Units.create = (newUnit, result) => {
+  sql.query("INSERT INTO units SET ?", newUnit, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -28,8 +25,8 @@ Unit.create = (newUnit, result) => {
   });
 };
 
-Unit.findById = (id, result) => {
-  sql.query(`SELECT * FROM unit WHERE id = ${id}`, (err, res) => {
+Units.findById = (id, result) => {
+  sql.query(`SELECT * FROM units WHERE id = ${id}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -47,8 +44,8 @@ Unit.findById = (id, result) => {
   });
 };
 
-Unit.getAll = (name, result) => {
-  let query = "SELECT * FROM unit";
+Units.getAll = (name, result) => {
+  let query = "SELECT * FROM units";
 
   if (name) {
     query += ` WHERE name LIKE '%${name}%'`;
@@ -66,8 +63,8 @@ Unit.getAll = (name, result) => {
   });
 };
 
-Unit.getAllPublished = result => {
-  sql.query("SELECT * FROM unit WHERE published=true", (err, res) => {
+Units.getAllPublished = result => {
+  sql.query("SELECT * FROM units WHERE published=true", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -79,9 +76,9 @@ Unit.getAllPublished = result => {
   });
 };
 
-Unit.updateById = (id, unit, result) => {
+Units.updateById = (id, unit, result) => {
   sql.query(
-    "UPDATE unit SET name = ?, description = ?, published = ? WHERE id = ?",
+    "UPDATE units SET name = ?, description = ?, published = ? WHERE id = ?",
     [unit.name, unit.description, unit.published, id],
     (err, res) => {
       if (err) {
@@ -102,8 +99,8 @@ Unit.updateById = (id, unit, result) => {
   );
 };
 
-Unit.remove = (id, result) => {
-  sql.query("DELETE FROM unit WHERE id = ?", id, (err, res) => {
+Units.remove = (id, result) => {
+  sql.query("DELETE FROM units WHERE id = ?", id, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -121,8 +118,8 @@ Unit.remove = (id, result) => {
   });
 };
 
-Unit.removeAll = result => {
-  sql.query("DELETE FROM unit", (err, res) => {
+Units.removeAll = result => {
+  sql.query("DELETE FROM units", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -134,4 +131,4 @@ Unit.removeAll = result => {
   });
 };
 
-module.exports = Unit;
+module.exports = Units;

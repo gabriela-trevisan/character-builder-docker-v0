@@ -1,18 +1,16 @@
-const Unit = require("../models/unit.model.js");
+const Units = require("../models/units.model.js");
 
-// Create and Save a new Unit
+// Create and Save a new Units
 exports.create = (req, res) => {
   // Validate request
   if (!req.body) {
     res.status(400).send({
-      message: "Content can not be empty!",
-      req: req,
-      res: res
+      message: "Content can not be empty!"
     });
   }
 
   // Create a Unit
-  const unit = new Unit({
+  const unit = new Units({
     name: req.body.name,
     type: req.body.type,
     quality: req.body.quality,
@@ -23,11 +21,11 @@ exports.create = (req, res) => {
   });
 
   // Save Unit in the database
-  Unit.create(unit, (err, data) => {
+  Units.create(unit, (err, data) => {
     if (err)
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Unit."
+          err.message || "Some error occurred while creating the Units."
       });
     else res.send(data);
     // res.send('Testeeeee');
@@ -36,9 +34,9 @@ exports.create = (req, res) => {
 
 // // Retrieve all Tutorials from the database (with condition).
 exports.findAll = (req, res) => {
-  const title = req.query.title;
+  const name = req.query.name;
 
-  Unit.getAll(title, (err, data) => {
+  Units.getAll(name, (err, data) => {
     if (err)
       res.status(500).send({
         message:
@@ -50,7 +48,7 @@ exports.findAll = (req, res) => {
 
 // // Find a single Unit by Id
 // exports.findOne = (req, res) => {
-//   Unit.findById(req.params.id, (err, data) => {
+//   Units.findById(req.params.id, (err, data) => {
 //     if (err) {
 //       if (err.kind === "not_found") {
 //         res.status(404).send({
@@ -67,7 +65,7 @@ exports.findAll = (req, res) => {
 
 // // find all published Tutorials
 // exports.findAllPublished = (req, res) => {
-//   Unit.getAllPublished((err, data) => {
+//   Units.getAllPublished((err, data) => {
 //     if (err)
 //       res.status(500).send({
 //         message:
@@ -88,7 +86,7 @@ exports.findAll = (req, res) => {
 
 //   console.log(req.body);
 
-//   Unit.updateById(
+//   Units.updateById(
 //     req.params.id,
 //     new Unit(req.body),
 //     (err, data) => {
@@ -109,7 +107,7 @@ exports.findAll = (req, res) => {
 
 // // Delete a Unit with the specified id in the request
 // exports.delete = (req, res) => {
-//   Unit.remove(req.params.id, (err, data) => {
+//   Units.remove(req.params.id, (err, data) => {
 //     if (err) {
 //       if (err.kind === "not_found") {
 //         res.status(404).send({
@@ -126,7 +124,7 @@ exports.findAll = (req, res) => {
 
 // // Delete all Tutorials from the database.
 // exports.deleteAll = (req, res) => {
-//   Unit.removeAll((err, data) => {
+//   Units.removeAll((err, data) => {
 //     if (err)
 //       res.status(500).send({
 //         message:

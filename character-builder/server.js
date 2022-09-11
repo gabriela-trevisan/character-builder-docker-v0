@@ -23,8 +23,8 @@ app.get("/", (req, res) => {
   // TODO: Criar lista de rotas
 });
 
-require("./app/routes/tutorial.routes.js")(app);
-require("./app/routes/unit.routes.js")(app);
+require("./app/routes/teams.routes.js")(app);
+require("./app/routes/units.routes.js")(app);
 
 // set port, listen for requests
 // const PORT = process.env.PORT || 8080;
