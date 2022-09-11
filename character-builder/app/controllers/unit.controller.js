@@ -1,31 +1,37 @@
 const Unit = require("../models/unit.model.js");
 
-// // Create and Save a new Unit
-// exports.create = (req, res) => {
-//   // Validate request
-//   if (!req.body) {
-//     res.status(400).send({
-//       message: "Content can not be empty!"
-//     });
-//   }
+// Create and Save a new Unit
+exports.create = (req, res) => {
+  // Validate request
+  if (!req.body) {
+    res.status(400).send({
+      message: "Content can not be empty!",
+      req: req,
+      res: res
+    });
+  }
 
-//   // Create a Unit
-//   const unit = new Unit({
-//     title: req.body.title,
-//     description: req.body.description,
-//     published: req.body.published || false
-//   });
+  // Create a Unit
+  const unit = new Unit({
+    name: req.body.name,
+    type: req.body.type,
+    quality: req.body.quality,
+    defense: req.body.defense,
+    weapons: req.body.weapons || false,
+    special_rules: req.body.special_rules || false,
+    total_cost: req.body.total_cost
+  });
 
-//   // Save Unit in the database
-//   Unit.create(unit, (err, data) => {
-//     if (err)
-//       res.status(500).send({
-//         message:
-//           err.message || "Some error occurred while creating the Unit."
-//       });
-//     else res.send(data);
-//   });
-// };
+  // Save Unit in the database
+  Unit.create(unit, (err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the Unit."
+      });
+    else res.send(data);
+  });
+};
 
 // // Retrieve all Tutorials from the database (with condition).
 // exports.findAll = (req, res) => {
@@ -133,3 +139,7 @@ const Unit = require("../models/unit.model.js");
 exports.teste = (req, res) => {
   res.send({ message: `Teste!` })
 };
+
+// exports.create = (req, res) => {
+//   res.send({ message: `Create!` })
+// };

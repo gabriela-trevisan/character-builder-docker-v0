@@ -2,13 +2,21 @@ const sql = require("./db.js");
 
 // constructor
 const Unit = function(unit) {
-  this.title = unit.title;
-  this.description = unit.description;
-  this.published = unit.published;
+  this.id = unit.id;
+  this.name = unit.name;
+  this.type = unit.type;
+  this.quality = unit.quality;
+  this.defense = unit.defense;
+  this.weapons = unit.weapons;
+  this.special_rules = unit.special_rules;
+  this.total_cost = unit.total_cost;
 };
 
 Unit.create = (newUnit, result) => {
-  sql.query("INSERT INTO units SET ?", newUnit, (err, res) => {
+  console.log('Unit.create()')
+  console.log(newUnit)
+  console.log(result)
+  sql.query("INSERT INTO unit SET ?", newUnit, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
