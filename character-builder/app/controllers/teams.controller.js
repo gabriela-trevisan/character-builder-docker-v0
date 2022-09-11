@@ -14,8 +14,8 @@ exports.create = (req, res) => {
     id_user: req.body.id_user,
     name: req.body.name,
     units: req.body.units || false,
-    total_points: req.body.total_points || false,
-    used_points: req.body.used_points || false
+    total_points: req.body.total_points || 0,
+    used_points: req.body.used_points || 0
   });
 
   // Save Team in the database

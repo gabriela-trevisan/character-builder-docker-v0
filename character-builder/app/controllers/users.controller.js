@@ -11,13 +11,11 @@ exports.create = (req, res) => {
 
   // Create a Unit
   const unit = new Units({
-    name: req.body.name,
-    type: req.body.type,
-    quality: req.body.quality,
-    defense: req.body.defense,
+    id_user: req.body.id_user,
+    id_team: req.body.id_team || false,
+    unit: req.body.unit,
     weapons: req.body.weapons || false,
     special_rules: req.body.special_rules || false,
-    base_cost: req.body.base_cost,
     total_cost: req.body.total_cost
   });
 

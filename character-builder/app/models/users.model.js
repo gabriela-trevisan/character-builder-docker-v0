@@ -1,33 +1,28 @@
 const sql = require("./db.js");
 
 // constructor
-const Units = function(unit) {
+const UserUnits = function(unit) {
   this.id = unit.id;
-  this.name = unit.name;
-  this.type = unit.type;
-  this.quality = unit.quality;
-  this.defense = unit.defense;
-  this.weapons = unit.weapons;
-  this.special_rules = unit.special_rules;
-  this.base_cost = unit.base_cost;
-  this.total_cost = unit.total_cost;
+  this.id_user = unit.id_user;
+  this.id_team = unit.id_team;
+  this.unit = unit.unit;
 };
 
-Units.create = (newUnit, result) => {
-  sql.query("INSERT INTO units SET ?", newUnit, (err, res) => {
+UserUnits.create = (newUserUnit, result) => {
+  sql.query("INSERT INTO users SET ?", newUserUnit, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
       return;
     }
 
-    console.log("created unit: ", { id: res.insertId, ...newUnit });
-    result(null, { id: res.insertId, ...newUnit });
+    console.log("created unit: ", { id: res.insertId, ...newUserUnit });
+    result(null, { id: res.insertId, ...newUserUnit });
   });
 };
 
-Units.findById = (id, result) => {
-  sql.query(`SELECT * FROM units WHERE id = ${id}`, (err, res) => {
+UserUnits.findById = (id, result) => {
+  sql.query(`SELECT * FROM users WHERE id = ${id}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -45,8 +40,8 @@ Units.findById = (id, result) => {
   });
 };
 
-Units.getAll = (name, result) => {
-  let query = "SELECT * FROM units";
+UserUnits.getAll = (name, result) => {
+  let query = "SELECT * FROM users";
 
   if (name) {
     query += ` WHERE name LIKE '%${name}%'`;
@@ -64,8 +59,8 @@ Units.getAll = (name, result) => {
   });
 };
 
-Units.getAllPublished = result => {
-  sql.query("SELECT * FROM units WHERE published=true", (err, res) => {
+UserUnits.getAllPublished = result => {
+  sql.query("SELECT * FROM users WHERE published=true", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -77,9 +72,9 @@ Units.getAllPublished = result => {
   });
 };
 
-Units.updateById = (id, unit, result) => {
+UserUnits.updateById = (id, unit, result) => {
   sql.query(
-    "UPDATE units SET name = ?, description = ?, published = ? WHERE id = ?",
+    "UPDATE users SET name = ?, description = ?, published = ? WHERE id = ?",
     [unit.name, unit.description, unit.published, id],
     (err, res) => {
       if (err) {
@@ -100,8 +95,8 @@ Units.updateById = (id, unit, result) => {
   );
 };
 
-Units.remove = (id, result) => {
-  sql.query("DELETE FROM units WHERE id = ?", id, (err, res) => {
+UserUnits.remove = (id, result) => {
+  sql.query("DELETE FROM users WHERE id = ?", id, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -119,8 +114,8 @@ Units.remove = (id, result) => {
   });
 };
 
-Units.removeAll = result => {
-  sql.query("DELETE FROM units", (err, res) => {
+UserUnits.removeAll = result => {
+  sql.query("DELETE FROM users", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -132,4 +127,4 @@ Units.removeAll = result => {
   });
 };
 
-module.exports = Units;
+module.exports = UserUnits;

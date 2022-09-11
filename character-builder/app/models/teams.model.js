@@ -1,4 +1,5 @@
 const sql = require("./db.js");
+const PointsCalculator = require("./points-calculator.model.js");
 
 // constructor
 const Teams = function(team) {
@@ -11,14 +12,34 @@ const Teams = function(team) {
 };
 
 Teams.create = (newTeam, result) => {
+  console.log("CREATE()")
+  console.log(newTeam)
+  // console.log(result)
+  // console.log(Object.entries(newTeam))
+  // TODO: validar os campos obrigatorios
+
+  // Calcula os pontos
+  let TeamPointsCalculated = PointsCalculator.unitsTotalCost(newTeam)
+  console.log("##### Retorno objeto:")
+  console.log(TeamPointsCalculated)
+  
+  newTeam = TeamPointsCalculated
+
+  var json_units = "{}";
+  // Seta json validado no objeto
+  json_units = JSON.stringify(TeamPointsCalculated['units'])
+  // console.log("json units: ", json)
+  newTeam['units'] = json_units
+
   sql.query("INSERT INTO teams SET ?", newTeam, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
       return;
     }
-
+    // console.log(res)
     console.log("created team: ", { id: res.insertId, ...newTeam });
+    newTeam.id = res.insertId;
     result(null, { id: res.insertId, ...newTeam });
   });
 };
